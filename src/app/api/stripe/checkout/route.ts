@@ -33,6 +33,7 @@ export async function POST(req: NextRequest) {
       allow_promotion_codes: true,
     });
     return NextResponse.json({ url: session.url });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
