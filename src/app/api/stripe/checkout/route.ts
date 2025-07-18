@@ -9,10 +9,10 @@ const PRICE_IDS: Record<string, string> = {
 };
 
 export async function POST(req: NextRequest) {
-  const { plan, email } = await req.json();
+  const { plan, producto, email } = await req.json();
   const priceId = PRICE_IDS[plan];
-  if (!priceId) {
-    return NextResponse.json({ error: "Plan inválido" }, { status: 400 });
+  if (!priceId || !producto) {
+    return NextResponse.json({ error: "Plan o producto inválido" }, { status: 400 });
   }
   try {
     const session = await stripe.checkout.sessions.create({
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
         },
       ],
       customer_email: email,
-      success_url: `${req.nextUrl.origin}/exito?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${req.nextUrl.origin}/descarga?producto=${encodeURIComponent(producto)}&plan=${encodeURIComponent(plan)}`,
       cancel_url: `${req.nextUrl.origin}/cancelado`,
       billing_address_collection: "auto",
       allow_promotion_codes: true,

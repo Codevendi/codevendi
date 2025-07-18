@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const productos = [
   {
@@ -26,11 +27,10 @@ const productos = [
 ];
 
 const partners = [
-  { src: "/partners/microsoft.png", alt: "Microsoft" },
-  { src: "/partners/google.png", alt: "Google" },
-  { src: "/partners/aws.png", alt: "AWS" },
-  { src: "/partners/stripe.png", alt: "Stripe" },
-  { src: "/partners/vercel.png", alt: "Vercel" },
+  { src: "/partners/google.svg", alt: "Google" },
+  { src: "/partners/amazon.svg", alt: "Amazon" },
+  { src: "/partners/visa.svg", alt: "Visa" },
+  { src: "/partners/microsoft.svg", alt: "Microsoft" },
 ];
 
 const faqs = [
@@ -53,6 +53,22 @@ const faqs = [
 ];
 
 export default function Home() {
+  const router = useRouter();
+  const PRECIO_BASICA = "9.99€";
+  const PRECIO_PRO = "29.99€";
+
+  async function handleBuy(slug, plan) {
+    const res = await fetch("/api/stripe/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ producto: slug, plan }),
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    }
+  }
+
   return (
     <div className="flex flex-col gap-24">
       {/* HERO PROFESIONAL */}
@@ -92,32 +108,38 @@ export default function Home() {
       </section>
 
       {/* PARTNERS/LOGOS */}
-      <section className="flex flex-col items-center gap-6 py-8">
-        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Partners y tecnología de confianza</h3>
+      <section className="flex flex-col items-center gap-6 py-8 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-4xl border border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-800 mb-2">Partners y tecnología de confianza</h3>
         <div className="flex flex-wrap justify-center gap-8 items-center">
           {partners.map((p, i) => (
-            <Image key={i} src={p.src} alt={p.alt} width={100} height={40} className="grayscale hover:grayscale-0 transition-all duration-300" />
+            <div key={i} className="flex items-center justify-center bg-gray-100 rounded-lg p-3 shadow-sm">
+              <Image src={p.src} alt={p.alt} width={100} height={40} className="object-contain" />
+            </div>
           ))}
         </div>
       </section>
 
       {/* SELLOS DE SEGURIDAD */}
-      <section className="flex flex-wrap justify-center gap-8 py-8">
+      <section className="flex flex-wrap justify-center gap-8 py-8 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-4xl border border-gray-200 mt-4">
         <div className="flex flex-col items-center gap-2">
-          <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" /></svg>
-          <span className="font-semibold text-gray-800 dark:text-white">SSL Encriptado</span>
+          {/* Candado para SSL */}
+          <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="16" height="10" x="4" y="11" rx="2"/><path d="M8 11V7a4 4 0 1 1 8 0v4"/></svg>
+          <span className="font-semibold text-gray-800">SSL Encriptado</span>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-          <span className="font-semibold text-gray-800 dark:text-white">Garantía de satisfacción</span>
+          {/* Medalla para garantía */}
+          <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2 2"/></svg>
+          <span className="font-semibold text-gray-800">Garantía de satisfacción</span>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3" /></svg>
-          <span className="font-semibold text-gray-800 dark:text-white">Entrega inmediata</span>
+          {/* Rayo para entrega inmediata */}
+          <svg className="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span className="font-semibold text-gray-800">Entrega inmediata</span>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" /></svg>
-          <span className="font-semibold text-gray-800 dark:text-white">Soporte 24/7</span>
+          {/* Auricular para soporte */}
+          <svg className="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 17v-1a5 5 0 0 0-5-5H7a5 5 0 0 0-5 5v1"/><rect x="7" y="17" width="10" height="4" rx="2"/></svg>
+          <span className="font-semibold text-gray-800">Soporte 24/7</span>
         </div>
       </section>
 
@@ -130,8 +152,22 @@ export default function Home() {
               <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition bg-yellow-500 pointer-events-none" />
               <Image src={producto.imagen} alt={producto.nombre} width={120} height={120} className="mb-4 rounded-lg shadow-lg" />
               <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white text-center">{producto.nombre}</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4 text-center">{producto.descripcion}</p>
-              <span className="text-yellow-500 font-bold text-lg mb-4">{producto.precio}</span>
+              <p className="text-gray-600 dark:text-gray-300 mb-2 text-center">{producto.descripcion}</p>
+              <span className="inline-block bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full mb-2">Prueba gratis 14 días</span>
+              <div className="flex flex-col items-center gap-1 mb-4">
+                <span className="text-gray-700 dark:text-gray-200 text-sm">Básica: <span className="text-yellow-500 font-bold">{PRECIO_BASICA}/mes</span></span>
+                <span className="text-gray-700 dark:text-gray-200 text-sm">Pro: <span className="text-yellow-500 font-bold">{PRECIO_PRO}/mes</span></span>
+              </div>
+              <div className="flex gap-2 w-full">
+                <button onClick={() => handleBuy(producto.slug, "basica")}
+                  className="flex-1 bg-gray-900 hover:bg-yellow-500 hover:text-gray-900 text-white font-bold py-2 px-4 rounded-full transition shadow-lg text-center">
+                  Comprar Básica
+                </button>
+                <button onClick={() => handleBuy(producto.slug, "pro")}
+                  className="flex-1 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-2 px-4 rounded-full transition shadow-lg text-center">
+                  Comprar Pro
+                </button>
+              </div>
               <Link href={`/catalogo/${producto.slug}`} className="bg-gray-900 hover:bg-yellow-500 hover:text-gray-900 text-white font-bold py-2 px-8 rounded-full transition shadow-lg w-full text-center">Ver Detalle</Link>
             </div>
           ))}

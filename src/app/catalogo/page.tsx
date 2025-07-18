@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const productos = [
   { nombre: "Gestor de Tareas Pro", slug: "gestor-tareas-pro", descripcion: "Organiza tu día y tus proyectos como un profesional. Automatiza recordatorios, colabora en equipo y alcanza tus metas sin estrés.", imagen: "/softwares/1.png", categoria: "Productividad" },
@@ -55,6 +56,21 @@ export default function Catalogo() {
   const productosFiltrados = categoriaSeleccionada === "Todos"
     ? productos
     : productos.filter(p => p.categoria === categoriaSeleccionada);
+  const PRECIO_BASICA = "9.99€";
+  const PRECIO_PRO = "29.99€";
+  const router = useRouter();
+
+  async function handleBuy(slug, plan) {
+    const res = await fetch("/api/stripe/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ producto: slug, plan }),
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    }
+  }
 
   return (
     <div className="flex flex-col gap-12">
@@ -106,46 +122,19 @@ export default function Catalogo() {
               <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               14 días de prueba gratuita
             </span>
-            <Link
-              href={`/catalogo/${producto.slug}`}
-              className="mt-auto bg-gray-900 hover:bg-yellow-500 hover:text-gray-900 text-white font-bold py-2 px-7 rounded-full transition-all duration-200 shadow-lg group-hover:shadow-2xl text-base tracking-wide flex items-center gap-2 z-10 relative"
-              title="Descubre todos los detalles y versiones"
-            >
-              Ver más
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </Link>
-            <div className="flex justify-between items-center w-full mt-6 pt-4 border-t border-gray-100 text-xs text-gray-500 z-10">
-              <span className="capitalize font-medium">{producto.categoria}</span>
-              <span className="">v{producto.slug === 'gestor-tareas-pro' ? '2.3.1' : ''}</span>
+            <div className="flex flex-col items-center gap-1 mb-4">
+              <span className="text-gray-700 text-sm">Básica: <span className="text-yellow-500 font-bold">{PRECIO_BASICA}/mes</span></span>
+              <span className="text-gray-700 text-sm">Pro: <span className="text-yellow-500 font-bold">{PRECIO_PRO}/mes</span></span>
             </div>
-          </div>
-        ))}
-      </div>
-      {/* Footer fijo con CTA y botón de cerrar */}
-      {showFooter && (
-        <footer className="fixed bottom-0 left-0 w-full bg-gray-900 text-white py-3 px-4 flex justify-center items-center shadow-2xl z-50 text-sm md:text-base">
-          <button
-            onClick={() => setShowFooter(false)}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-xl font-bold focus:outline-none"
-            aria-label="Cerrar aviso"
-            style={{right: 16}}
-          >
-            ×
-          </button>
-          ¿Tienes dudas? <span className="mx-2 font-bold text-yellow-400">¡Contáctanos y te asesoramos gratis!</span>
-          <a href="/contacto" className="ml-3 px-4 py-2 rounded-full bg-yellow-500 text-gray-900 font-bold hover:bg-yellow-400 transition">Contacto</a>
-        </footer>
-      )}
-    </div>
-  );
-}
-
-<style jsx global>{`
-@keyframes fade-in-up {
-  0% { opacity: 0; transform: translateY(24px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in-up {
-  animation: fade-in-up 0.7s cubic-bezier(.39,.575,.565,1) both;
-}
-`}</style> 
+            <div className="flex gap-2 w-full">
+              <button onClick={() => handleBuy(producto.slug, "basica")}
+                className="flex-1 bg-gray-900 hover:bg-yellow-500 hover:text-gray-900 text-white font-bold py-2 px-4 rounded-full transition shadow-lg text-center">
+                Comprar Básica
+              </button>
+              <button onClick={() => handleBuy(producto.slug, "pro")}
+                className="flex-1 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-2 px-4 rounded-full transition shadow-lg text-center">
+                Comprar Pro
+              </button>
+            </div>
+            <Link
+              href={`

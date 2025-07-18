@@ -2,6 +2,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import FooterCta from "./FooterCta";
 import AccionesProducto from "./AccionesProducto";
+import { useRouter } from "next/navigation";
 
 const productos = [
   {
@@ -620,22 +621,46 @@ export default async function SoftwareDetail({ params }: { params: Promise<{ slu
   const producto = productos[idx];
   if (!producto) return notFound();
 
+  const PRECIO_BASICA = "9.99€";
+  const PRECIO_PRO = "29.99€";
+  const router = useRouter();
+
+  async function handleBuy(slug, plan) {
+    const res = await fetch("/api/stripe/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ producto: slug, plan }),
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    }
+  }
+
   return (
     <div className="max-w-5xl mx-auto py-12 px-4 animate-fade-in-up">
-      <div className="flex flex-col md:flex-row gap-8 items-start">
-        {/* Tarjeta principal: info */}
-        <div className="flex-1 bg-white rounded-2xl shadow-xl border border-gray-100 p-8 flex flex-col items-center md:items-start mb-6 md:mb-0">
-          {/* Imagen pequeña + título en fila */}
-          <div className="flex items-center gap-3 mb-2">
-            <Image src={producto.imagen} alt={producto.nombre} width={40} height={40} className="rounded-lg shadow border border-gray-200 bg-white" />
-            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight drop-shadow-lg">{producto.nombre}</h1>
+      <div className="flex flex-col md:flex-row gap-10">
+        <div className="flex-shrink-0">
+          <Image src={producto.imagen} alt={producto.nombre} width={200} height={200} className="rounded-xl shadow-lg" />
+        </div>
+        <div className="flex-1 flex flex-col gap-4">
+          <h1 className="text-3xl font-extrabold text-gray-900 mb-2">{producto.nombre}</h1>
+          <p className="text-lg text-gray-700 mb-2">{producto.descripcion}</p>
+          <span className="inline-block bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full mb-2">Prueba gratis 14 días</span>
+          <div className="flex flex-col gap-1 mb-4">
+            <span className="text-gray-700 text-base">Básica: <span className="text-yellow-500 font-bold">{PRECIO_BASICA}/mes</span></span>
+            <span className="text-gray-700 text-base">Pro: <span className="text-yellow-500 font-bold">{PRECIO_PRO}/mes</span></span>
           </div>
-          <div className="flex items-center gap-2 mb-2">
-            <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.38-2.454a1 1 0 00-1.175 0l-3.38 2.454c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.05 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z" /></svg>
-            <span className="text-xs text-gray-600 font-semibold">4.9/5</span>
-            <span className="text-xs text-gray-400">(1.200+)</span>
+          <div className="flex gap-2 w-full">
+            <button onClick={() => handleBuy(producto.slug, "basica")}
+              className="flex-1 bg-gray-900 hover:bg-yellow-500 hover:text-gray-900 text-white font-bold py-2 px-4 rounded-full transition shadow-lg text-center">
+              Comprar Básica
+            </button>
+            <button onClick={() => handleBuy(producto.slug, "pro")}
+              className="flex-1 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-2 px-4 rounded-full transition shadow-lg text-center">
+              Comprar Pro
+            </button>
           </div>
-          <p className="text-lg text-gray-700 mb-4 leading-relaxed text-center md:text-left">{producto.descripcion}</p>
           <div className="w-full">
             <h2 className="text-xl font-bold text-gray-800 mb-2">Características principales</h2>
             <ul className="list-disc list-inside text-gray-700 mb-4 space-y-1">
