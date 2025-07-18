@@ -109,39 +109,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PARTNERS/LOGOS */}
-      <section className="flex flex-col items-center gap-6 py-8 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-4xl border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">Partners y tecnología de confianza</h3>
-        <div className="flex flex-wrap justify-center gap-8 items-center">
-          {partners.map((p, i) => (
-            <div key={i} className="flex items-center justify-center bg-gray-100 rounded-lg p-3 shadow-sm">
-              <Image src={p.src} alt={p.alt} width={100} height={40} className="object-contain" />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* SELLOS DE SEGURIDAD */}
-      <section className="flex flex-wrap justify-center gap-8 py-8 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-4xl border border-gray-200 mt-4">
-        <div className="flex flex-col items-center gap-2">
-          {/* Candado para SSL */}
-          <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="16" height="10" x="4" y="11" rx="2"/><path d="M8 11V7a4 4 0 1 1 8 0v4"/></svg>
-          <span className="font-semibold text-gray-800">SSL Encriptado</span>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          {/* Medalla para garantía */}
-          <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2 2"/></svg>
-          <span className="font-semibold text-gray-800">Garantía de satisfacción</span>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          {/* Rayo para entrega inmediata */}
-          <svg className="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          <span className="font-semibold text-gray-800">Entrega inmediata</span>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          {/* Auricular para soporte */}
-          <svg className="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 17v-1a5 5 0 0 0-5-5H7a5 5 0 0 0-5 5v1"/><rect x="7" y="17" width="10" height="4" rx="2"/></svg>
-          <span className="font-semibold text-gray-800">Soporte 24/7</span>
+      {/* NUEVA SECCIÓN DE CONFIANZA */}
+      <section className="flex flex-col items-center gap-8 py-12 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-4xl border border-gray-200 mt-8">
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">¿Por qué confiar en Codevendi?</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full">
+          <div className="flex flex-col items-center gap-2">
+            <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+            <span className="font-semibold text-gray-800 text-center">Pago 100% seguro</span>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3" /></svg>
+            <span className="font-semibold text-gray-800 text-center">Demo gratis 14 días</span>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" /></svg>
+            <span className="font-semibold text-gray-800 text-center">Soporte profesional</span>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" /></svg>
+            <span className="font-semibold text-gray-800 text-center">Descarga inmediata</span>
+          </div>
         </div>
       </section>
 
