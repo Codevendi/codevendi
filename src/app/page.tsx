@@ -27,7 +27,7 @@ export default function Home() {
     <div className="flex flex-col gap-16">
       {/* Hero principal */}
       <section className="text-center py-16 flex flex-col items-center gap-6">
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
+        <h1 className="text-5xl font-extrabold text-white mb-4">
           Bienvenido a <span className="text-yellow-500">CodeVendi</span>
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
