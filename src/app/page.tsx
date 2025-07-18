@@ -114,19 +114,23 @@ export default function Home() {
         <h3 className="text-2xl font-bold text-gray-900 mb-4">¿Por qué confiar en Codevendi?</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full">
           <div className="flex flex-col items-center gap-2">
-            <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+            {/* Candado: Pago seguro */}
+            <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17a2 2 0 100-4 2 2 0 000 4z" /><path d="M6 8V6a6 6 0 1112 0v2" /><rect x="4" y="8" width="16" height="12" rx="2" /></svg>
             <span className="font-semibold text-gray-800 text-center">Pago 100% seguro</span>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3" /></svg>
+            {/* Reloj: Demo gratis */}
+            <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
             <span className="font-semibold text-gray-800 text-center">Demo gratis 14 días</span>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" /></svg>
+            {/* Auriculares: Soporte profesional */}
+            <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0118 0v6" /><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-4a2 2 0 012-2h1a2 2 0 012 2v4z" /><path d="M3 19a2 2 0 002 2h1a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4z" /></svg>
             <span className="font-semibold text-gray-800 text-center">Soporte profesional</span>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" /></svg>
+            {/* Flecha hacia abajo: Descarga inmediata */}
+            <svg className="w-10 h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4" /></svg>
             <span className="font-semibold text-gray-800 text-center">Descarga inmediata</span>
           </div>
         </div>
