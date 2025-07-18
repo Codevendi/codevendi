@@ -4,8 +4,6 @@ import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
-
 export default function Descarga() {
   const searchParams = useSearchParams();
   const producto = searchParams.get("producto");
