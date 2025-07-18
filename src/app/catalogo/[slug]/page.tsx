@@ -627,7 +627,7 @@ export default async function SoftwareDetail({ params }: { params: Promise<{ slu
   const PRECIO_PRO = "29.99€";
   const router = useRouter();
 
-  async function handleBuy(slug, plan) {
+  async function handleBuy(slug: string, plan: string) {
     const res = await fetch("/api/stripe/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
