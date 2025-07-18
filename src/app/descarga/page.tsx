@@ -47,6 +47,7 @@ export default function Descarga() {
         <Link href="/catalogo" className="mt-4 inline-block bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-2 px-8 rounded-full text-lg shadow-lg transition">Volver al catálogo</Link>
         <p className="mt-6 text-gray-500 text-xs">¿Problemas con la descarga? <a href="/contacto" className="text-yellow-500 underline">Contacta con soporte</a></p>
       </div>
-    </div>
+      </div>
   );
-} 
+}
+export const dynamic = "force-dynamic";
