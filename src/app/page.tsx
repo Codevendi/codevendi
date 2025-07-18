@@ -1,7 +1,8 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+// ...resto del código...
 const productos = [
   {
     nombre: "Gestor de Tareas Pro",
