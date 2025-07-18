@@ -72,7 +72,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col gap-24">
+    <div className="flex flex-col gap-8">
       {/* HERO PROFESIONAL */}
       <section className="relative flex flex-col items-center justify-center min-h-[60vh] py-14 sm:py-20 text-center bg-gradient-to-br from-gray-900 via-gray-800 to-yellow-900 overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[url('/softwares/1.png')] bg-no-repeat bg-center bg-cover pointer-events-none animate-pulse" />
@@ -149,7 +149,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 my-6 sm:my-8 w-full">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-2 my-2 w-full">
           <Link href="/catalogo/" className="inline-block bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-2 sm:py-3 px-6 sm:px-10 rounded-full text-base sm:text-lg shadow-lg transition w-full sm:w-auto text-center">Ver todo el catálogo</Link>
           <Link href="/porque-codevendi" className="inline-block bg-gray-900 hover:bg-yellow-500 hover:text-gray-900 text-white font-bold py-2 sm:py-3 px-6 sm:px-10 rounded-full text-base sm:text-lg shadow-lg transition w-full sm:w-auto text-center">¿Por qué CodeVendi?</Link>
           <Link href="/contacto" className="inline-block bg-white hover:bg-yellow-400 text-gray-900 font-bold py-2 sm:py-3 px-6 sm:px-10 rounded-full text-base sm:text-lg shadow-lg transition border border-yellow-500 w-full sm:w-auto text-center">Contacto</Link>
