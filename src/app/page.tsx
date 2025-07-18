@@ -27,10 +27,10 @@ const productos = [
 ];
 
 const partners = [
-  { src: "/partners/google.svg", alt: "Google" },
-  { src: "/partners/amazon.svg", alt: "Amazon" },
-  { src: "/partners/visa.svg", alt: "Visa" },
-  { src: "/partners/microsoft.svg", alt: "Microsoft" },
+  { src: "/partners/google.png", alt: "Google" },
+  { src: "/partners/amazon.png", alt: "Amazon" },
+  { src: "/partners/visa.png", alt: "Visa" },
+  { src: "/partners/microsoft.png", alt: "Microsoft" },
 ];
 
 const faqs = [
