@@ -137,4 +137,19 @@ export default function Catalogo() {
               </button>
             </div>
             <Link
-              href={`
+              href={`/catalogo/${producto.slug}`}
+              className="bg-gray-900 hover:bg-yellow-500 hover:text-gray-900 text-white font-bold py-2 px-8 rounded-full transition shadow-lg w-full text-center"
+            >
+              Ver Detalle
+            </Link>
+          </div>
+        ))}
+      </div>
+      {showFooter && (
+        <footer className="mt-16 text-center text-gray-600 text-sm">
+          &copy; 2023 Softwares. Todos los derechos reservados.
+        </footer>
+      )}
+    </div>
+  );
+}
