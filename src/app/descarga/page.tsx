@@ -48,4 +48,5 @@ export default function Descarga() {
       </div>
   );
 }
+
 export const dynamic = "force-dynamic";
