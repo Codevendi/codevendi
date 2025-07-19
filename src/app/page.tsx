@@ -197,7 +197,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-2 my-2 w-full">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-2 my-1 w-full">
           <Link href="/catalogo/" className="inline-block bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-2 sm:py-3 px-6 sm:px-10 rounded-full text-base sm:text-lg shadow-lg transition w-full sm:w-auto text-center">Ver todo el catálogo</Link>
           <Link href="/porque-codevendi" className="inline-block bg-gray-900 hover:bg-yellow-500 hover:text-gray-900 text-white font-bold py-2 sm:py-3 px-6 sm:px-10 rounded-full text-base sm:text-lg shadow-lg transition w-full sm:w-auto text-center">¿Por qué CodeVendi?</Link>
           <Link href="/contacto" className="inline-block bg-white hover:bg-yellow-400 text-gray-900 font-bold py-2 sm:py-3 px-6 sm:px-10 rounded-full text-base sm:text-lg shadow-lg transition border border-yellow-500 w-full sm:w-auto text-center">Contacto</Link>
