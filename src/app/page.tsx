@@ -99,21 +99,21 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
           {/* Testimonio 1 */}
           <div className="bg-white/80 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border border-yellow-100 animate-fade-in">
-            <Image src="/avatars/avatar1.png" alt="María López" width={64} height={64} className="rounded-full mb-3 border-2 border-yellow-400" />
+            <img src="/avatars/avatar1.svg" alt="María López" width={64} height={64} className="rounded-full mb-3 border-2 border-yellow-400" />
             <span className="font-bold text-gray-900">María López</span>
             <span className="text-sm text-gray-500 mb-2">CEO, Soluciones Financieras</span>
             <p className="text-gray-700 text-base">“Gracias a Codevendi hemos digitalizado toda la empresa en días. El soporte es increíble y la descarga inmediata.”</p>
           </div>
           {/* Testimonio 2 */}
           <div className="bg-white/80 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border border-yellow-100 animate-fade-in delay-100">
-            <Image src="/avatars/avatar2.png" alt="Carlos Ruiz" width={64} height={64} className="rounded-full mb-3 border-2 border-yellow-400" />
+            <img src="/avatars/avatar2.svg" alt="Carlos Ruiz" width={64} height={64} className="rounded-full mb-3 border-2 border-yellow-400" />
             <span className="font-bold text-gray-900">Carlos Ruiz</span>
             <span className="text-sm text-gray-500 mb-2">CTO, StartApp</span>
             <p className="text-gray-700 text-base">“El software es potente y fácil de usar. La demo gratis y la compra fueron rapidísimas. ¡Repetiremos!”</p>
           </div>
           {/* Testimonio 3 */}
           <div className="bg-white/80 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border border-yellow-100 animate-fade-in delay-200">
-            <Image src="/avatars/avatar3.png" alt="Lucía Fernández" width={64} height={64} className="rounded-full mb-3 border-2 border-yellow-400" />
+            <img src="/avatars/avatar3.svg" alt="Lucía Fernández" width={64} height={64} className="rounded-full mb-3 border-2 border-yellow-400" />
             <span className="font-bold text-gray-900">Lucía Fernández</span>
             <span className="text-sm text-gray-500 mb-2">Directora de Operaciones, Grupo Nova</span>
             <p className="text-gray-700 text-base">“La mejor inversión en tecnología. El equipo de soporte responde como si fueran parte de nuestra empresa.”</p>
@@ -186,7 +186,7 @@ export default function Home() {
           {partners.map((p, i) => (
             <div key={i} className="transition-transform duration-300 hover:scale-110">
               <img
-                src={p.src}
+                src={p.src.replace('.png', '.svg')}
                 alt={p.alt}
                 className="w-28 h-12 object-contain grayscale hover:grayscale-0 transition-all duration-300 drop-shadow-md bg-white rounded-lg p-2"
                 aria-label={`Logo de ${p.alt}`}
