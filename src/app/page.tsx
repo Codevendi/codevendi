@@ -72,7 +72,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-12">
       {/* HERO PROFESIONAL MEJORADO */}
       <section className="relative flex flex-col items-center justify-center min-h-[70vh] py-14 sm:py-24 text-center bg-gradient-to-br from-yellow-400 via-yellow-100 to-yellow-500 overflow-hidden">
         {/* Fondo SVG animado */}
@@ -93,36 +93,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIOS */}
-      <section className="w-full max-w-5xl mx-auto py-10 sm:py-16 px-2 flex flex-col items-center">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8 text-center animate-fade-in">Clientes felices, empresas que crecen</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
-          {/* Testimonio 1 */}
-          <div className="bg-white/80 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border border-yellow-100 animate-fade-in">
-            <img src="/avatars/avatar1.jpg" alt="María López" width={64} height={64} className="rounded-full mb-3 border-2 border-yellow-400" />
-            <span className="font-bold text-gray-900">María López</span>
-            <span className="text-sm text-gray-500 mb-2">CEO, Soluciones Financieras</span>
-            <p className="text-gray-700 text-base">“Gracias a Codevendi hemos digitalizado toda la empresa en días. El soporte es increíble y la descarga inmediata.”</p>
-          </div>
-          {/* Testimonio 2 */}
-          <div className="bg-white/80 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border border-yellow-100 animate-fade-in delay-100">
-            <img src="/avatars/avatar2.jpg" alt="Carlos Ruiz" width={64} height={64} className="rounded-full mb-3 border-2 border-yellow-400" />
-            <span className="font-bold text-gray-900">Carlos Ruiz</span>
-            <span className="text-sm text-gray-500 mb-2">CTO, StartApp</span>
-            <p className="text-gray-700 text-base">“El software es potente y fácil de usar. La demo gratis y la compra fueron rapidísimas. ¡Repetiremos!”</p>
-          </div>
-          {/* Testimonio 3 */}
-          <div className="bg-white/80 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border border-yellow-100 animate-fade-in delay-200">
-            <img src="/avatars/avatar3.jpg" alt="Mamadou Davis" width={64} height={64} className="rounded-full mb-3 border-2 border-yellow-400" />
-            <span className="font-bold text-gray-900">Mamadou Davis</span>
-            <span className="text-sm text-gray-500 mb-2">Director de Operaciones, Grupo Nova</span>
-            <p className="text-gray-700 text-base">“La mejor inversión en tecnología. El equipo de soporte responde como si fueran parte de nuestra empresa.”</p>
-          </div>
+      {/* PARTNERS ANIMADOS - ahora fondo oscuro y título blanco */}
+      <section className="w-full max-w-4xl mx-auto py-10 flex flex-col items-center bg-gray-900 rounded-2xl shadow-lg">
+        <h3 className="text-xl sm:text-2xl font-bold text-white mb-6 text-center">Confían en nosotros</h3>
+        <div className="flex flex-wrap justify-center gap-8 w-full">
+          {partners.map((p, i) => (
+            <div key={i} className="transition-transform duration-300 hover:scale-110 flex items-center justify-center bg-white rounded-xl shadow-md p-2 sm:p-4" style={{ minWidth: 120, minHeight: 60 }}>
+              <img
+                src={p.src}
+                alt={p.alt}
+                className="w-32 h-16 object-contain mx-auto"
+                aria-label={`Logo de ${p.alt}`}
+              />
+            </div>
+          ))}
         </div>
       </section>
 
       {/* CÓMO FUNCIONA */}
-      <section className="w-full max-w-4xl mx-auto py-10 sm:py-16 px-2 flex flex-col items-center">
+      <section className="w-full max-w-4xl mx-auto py-12 sm:py-20 px-2 flex flex-col items-center">
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8 text-center animate-fade-in">¿Cómo funciona Codevendi?</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 w-full">
           {/* Paso 1 */}
@@ -152,47 +141,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NUEVA SECCIÓN DE CONFIANZA */}
-      <section className="flex flex-col items-center gap-8 py-8 sm:py-12 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-4xl border border-gray-200 mt-8">
-        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-4">¿Por qué confiar en Codevendi?</h3>
+      {/* NUEVA SECCIÓN DE CONFIANZA - fondo oscuro y título blanco */}
+      <section className="flex flex-col items-center gap-8 py-12 sm:py-20 bg-gray-900 rounded-2xl shadow-lg mx-auto w-full max-w-4xl border border-gray-800 mt-8">
+        <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-4">¿Por qué confiar en Codevendi?</h3>
         <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 w-full">
           <div className="flex flex-col items-center gap-2">
             {/* Candado: Pago seguro */}
             <svg className="w-8 h-8 sm:w-10 sm:h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17a2 2 0 100-4 2 2 0 000 4z" /><path d="M6 8V6a6 6 0 1112 0v2" /><rect x="4" y="8" width="16" height="12" rx="2" /></svg>
-            <span className="font-semibold text-gray-800 text-center text-sm sm:text-base">Pago 100% seguro</span>
+            <span className="font-semibold text-white text-center text-sm sm:text-base">Pago 100% seguro</span>
           </div>
           <div className="flex flex-col items-center gap-2">
             {/* Reloj: Demo gratis */}
             <svg className="w-8 h-8 sm:w-10 sm:h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
-            <span className="font-semibold text-gray-800 text-center text-sm sm:text-base">Demo gratis 14 días</span>
+            <span className="font-semibold text-white text-center text-sm sm:text-base">Demo gratis 14 días</span>
           </div>
           <div className="flex flex-col items-center gap-2">
             {/* Auriculares: Soporte profesional */}
             <svg className="w-8 h-8 sm:w-10 sm:h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0118 0v6" /><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-4a2 2 0 012-2h1a2 2 0 012 2v4z" /><path d="M3 19a2 2 0 002 2h1a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4z" /></svg>
-            <span className="font-semibold text-gray-800 text-center text-sm sm:text-base">Soporte profesional</span>
+            <span className="font-semibold text-white text-center text-sm sm:text-base">Soporte profesional</span>
           </div>
           <div className="flex flex-col items-center gap-2">
             {/* Flecha hacia abajo: Descarga inmediata */}
             <svg className="w-8 h-8 sm:w-10 sm:h-10 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4" /></svg>
-            <span className="font-semibold text-gray-800 text-center text-sm sm:text-base">Descarga inmediata</span>
+            <span className="font-semibold text-white text-center text-sm sm:text-base">Descarga inmediata</span>
           </div>
-        </div>
-      </section>
-
-      {/* PARTNERS ANIMADOS */}
-      <section className="w-full max-w-4xl mx-auto py-8 flex flex-col items-center">
-        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 text-center">Confían en nosotros</h3>
-        <div className="flex flex-wrap justify-center gap-8 w-full">
-          {partners.map((p, i) => (
-            <div key={i} className="transition-transform duration-300 hover:scale-110 flex items-center justify-center bg-white rounded-xl shadow-md p-2 sm:p-4" style={{ minWidth: 120, minHeight: 60 }}>
-              <img
-                src={p.src}
-                alt={p.alt}
-                className="w-32 h-16 object-contain mx-auto"
-                aria-label={`Logo de ${p.alt}`}
-              />
-            </div>
-          ))}
         </div>
       </section>
 
