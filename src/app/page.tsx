@@ -171,7 +171,7 @@ export default function Home() {
       {/* PRODUCTOS DESTACADOS GLASSMORPHISM */}
       <section>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 sm:mb-10 text-center">Softwares Destacados</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-10 mb-0">
           {productos.map((producto, idx) => (
             <div key={idx} className="bg-white/60 dark:bg-gray-900/70 backdrop-blur-md rounded-2xl shadow-2xl border border-yellow-100 dark:border-yellow-700 p-5 sm:p-8 flex flex-col items-center transition-all duration-300 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-yellow-200 relative overflow-hidden group focus-within:ring-2 focus-within:ring-yellow-400" tabIndex={0} aria-label={`Producto destacado: ${producto.nombre}`}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition bg-yellow-500 pointer-events-none" />
@@ -197,7 +197,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-2 my-1 w-full">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-1 my-0 w-full">
           <Link href="/catalogo/" className="inline-block bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-2 sm:py-3 px-6 sm:px-10 rounded-full text-base sm:text-lg shadow-lg transition w-full sm:w-auto text-center">Ver todo el catálogo</Link>
           <Link href="/porque-codevendi" className="inline-block bg-gray-900 hover:bg-yellow-500 hover:text-gray-900 text-white font-bold py-2 sm:py-3 px-6 sm:px-10 rounded-full text-base sm:text-lg shadow-lg transition w-full sm:w-auto text-center">¿Por qué CodeVendi?</Link>
           <Link href="/contacto" className="inline-block bg-white hover:bg-yellow-400 text-gray-900 font-bold py-2 sm:py-3 px-6 sm:px-10 rounded-full text-base sm:text-lg shadow-lg transition border border-yellow-500 w-full sm:w-auto text-center">Contacto</Link>
