@@ -47,7 +47,7 @@ export default function Header() {
   return (
     <header className="w-full shadow-sm bg-white sticky top-0 z-50">
       <nav className="container mx-auto flex items-center justify-between py-3 px-4 relative">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2 mx-auto md:mx-0">
           <Image src="/logo-codevendi.png" alt="Codevendi Logo" width={180} height={40} priority />
         </Link>
         {/* Menú horizontal (solo escritorio) */}
