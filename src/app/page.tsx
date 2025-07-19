@@ -29,10 +29,10 @@ const productos = [
 ];
 
 const partners = [
-  { src: "/partners/google.svg", alt: "Google" },
-  { src: "/partners/amazon.svg", alt: "Amazon" },
-  { src: "/partners/visa.svg", alt: "Visa" },
-  { src: "/partners/microsoft.svg", alt: "Microsoft" },
+  { src: "/partners/google.jpg", alt: "Google" },
+  { src: "/partners/aws.jpg", alt: "AWS" },
+  { src: "/partners/visa.jpg", alt: "Visa" },
+  { src: "/partners/microsoft.jpg", alt: "Microsoft" },
 ];
 
 const faqs = [
@@ -114,7 +114,7 @@ export default function Home() {
           {/* Testimonio 3 */}
           <div className="bg-white/80 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border border-yellow-100 animate-fade-in delay-200">
             <img src="/avatars/avatar3.svg" alt="Lucía Fernández" width={64} height={64} className="rounded-full mb-3 border-2 border-yellow-400" />
-            <span className="font-bold text-gray-900">Lucía Fernández</span>
+            <span className="font-bold text-gray-900">Jorge Fernández</span>
             <span className="text-sm text-gray-500 mb-2">Directora de Operaciones, Grupo Nova</span>
             <p className="text-gray-700 text-base">“La mejor inversión en tecnología. El equipo de soporte responde como si fueran parte de nuestra empresa.”</p>
           </div>
