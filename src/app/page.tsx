@@ -91,18 +91,11 @@ export default function Home() {
           <p className="text-lg sm:text-2xl text-gray-800 max-w-xl mx-auto mb-8 font-medium animate-fade-in delay-100">Soluciones digitales listas para usar, con soporte real y resultados inmediatos. ¡Compra, descarga y crece sin límites!</p>
           <Link href="/catalogo/" className="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-4 px-10 rounded-full text-lg shadow-xl transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 animate-fade-in delay-200">Ver catálogo y probar gratis</Link>
         </div>
-        {/* Mockup de software */}
-        <div className="relative z-10 mt-10 w-full flex justify-center animate-fade-in delay-300">
-          <div className="bg-white/80 rounded-2xl shadow-2xl border-2 border-yellow-200 p-2 sm:p-4 max-w-md w-full flex flex-col items-center">
-            <Image src="/softwares/1.png" alt="Mockup software" width={320} height={180} className="rounded-xl shadow-lg border border-yellow-100" />
-            <span className="mt-2 text-sm text-gray-700 font-semibold">Ejemplo: Gestor de Tareas Pro</span>
-          </div>
-        </div>
       </section>
 
       {/* TESTIMONIOS */}
       <section className="w-full max-w-5xl mx-auto py-10 sm:py-16 px-2 flex flex-col items-center">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center animate-fade-in">Clientes felices, empresas que crecen</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8 text-center animate-fade-in">Clientes felices, empresas que crecen</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
           {/* Testimonio 1 */}
           <div className="bg-white/80 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border border-yellow-100 animate-fade-in">
@@ -130,7 +123,7 @@ export default function Home() {
 
       {/* CÓMO FUNCIONA */}
       <section className="w-full max-w-4xl mx-auto py-10 sm:py-16 px-2 flex flex-col items-center">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center animate-fade-in">¿Cómo funciona Codevendi?</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8 text-center animate-fade-in">¿Cómo funciona Codevendi?</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 w-full">
           {/* Paso 1 */}
           <div className="flex flex-col items-center bg-white/80 rounded-2xl shadow-lg p-6 border border-yellow-100 animate-fade-in">
