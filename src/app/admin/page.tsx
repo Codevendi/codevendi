@@ -9,7 +9,8 @@ export default function AdminPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (status === "authenticated" && session?.user?.role !== "admin") {
+    // @ts-expect-error
+    if (status === "authenticated" && (session?.user as any)?.role !== "admin") {
       router.push("/");
     }
     if (status === "unauthenticated") {
