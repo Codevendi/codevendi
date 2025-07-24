@@ -27,7 +27,6 @@ export default function AdminIAPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // @ts-expect-error
     if (status === "authenticated" && (session?.user as any)?.role !== "admin") {
       router.push("/");
     }
