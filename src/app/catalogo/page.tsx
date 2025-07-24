@@ -1,64 +1,27 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const productos = [
-  { nombre: "Gestor de Tareas Pro", slug: "gestor-tareas-pro", descripcion: "Organiza tu día y tus proyectos como un profesional. Automatiza recordatorios, colabora en equipo y alcanza tus metas sin estrés.", imagen: "/softwares/1.png", categoria: "Productividad" },
-  { nombre: "Facturación Fácil", slug: "facturacion-facil", descripcion: "Olvídate del papeleo: factura en un clic, controla tus finanzas y cumple con Hacienda sin esfuerzo. ¡Ahorra tiempo y evita errores!", imagen: "/softwares/2.png", categoria: "Negocios" },
-  { nombre: "CRM Clientes+", slug: "crm-clientes-plus", descripcion: "Convierte más ventas y fideliza clientes con seguimiento inteligente y paneles visuales. Tu negocio, siempre bajo control.", imagen: "/softwares/3.png", categoria: "CRM" },
-  { nombre: "Editor de Imágenes Pro", slug: "editor-imagenes-pro", descripcion: "Crea imágenes impactantes en minutos. Filtros profesionales, edición avanzada y resultados de calidad para destacar tu marca.", imagen: "/softwares/4.png", categoria: "Diseño" },
-  { nombre: "Antivirus Ultra", slug: "antivirus-ultra", descripcion: "Protege tu empresa y tus datos con la máxima seguridad. Detección inteligente y actualizaciones automáticas para tu tranquilidad.", imagen: "/softwares/5.png", categoria: "Seguridad" },
-  { nombre: "Notas Rápidas", slug: "notas-rapidas", descripcion: "Captura ideas y tareas al instante. Sincroniza en todos tus dispositivos y nunca pierdas una inspiración importante.", imagen: "/softwares/6.png", categoria: "Productividad" },
-  { nombre: "Gestor de Contraseñas", slug: "gestor-contraseñas", descripcion: "Tus contraseñas seguras y siempre a mano. Olvídate de recordar claves y accede a todo con un solo clic.", imagen: "/softwares/7.png", categoria: "Seguridad" },
-  { nombre: "VideoMeet Pro", slug: "videomeet-pro", descripcion: "Reuniones online sin límites: videollamadas HD, grabación y colaboración en tiempo real. Conecta y crece desde cualquier lugar.", imagen: "/softwares/8.png", categoria: "Comunicación" },
-  { nombre: "Gestor de Proyectos", slug: "gestor-proyectos", descripcion: "Planifica, asigna y visualiza el avance de tus proyectos con facilidad. Mantén a tu equipo alineado y entrega siempre a tiempo.", imagen: "/softwares/9.png", categoria: "Negocios" },
-  { nombre: "Calendario Inteligente", slug: "calendario-inteligente", descripcion: "Tu agenda, siempre organizada. Recibe recordatorios automáticos y sincroniza con tus apps favoritas. No vuelvas a perder una cita.", imagen: "/softwares/10.png", categoria: "Productividad" },
-  { nombre: "Automatizador de Tareas", slug: "automatizador-tareas", descripcion: "Automatiza procesos repetitivos y ahorra horas cada semana. Conecta tus apps y deja que el software trabaje por ti.", imagen: "/softwares/11.png", categoria: "Productividad" },
-  { nombre: "MindMap Pro", slug: "mindmap-pro", descripcion: "Visualiza tus ideas y proyectos con mapas mentales interactivos. Colabora y presenta de forma creativa y efectiva.", imagen: "/softwares/12.png", categoria: "Educación" },
-  { nombre: "Escritor AI", slug: "escritor-ai", descripcion: "Redacta textos, emails y artículos en segundos con ayuda de IA. Ahorra tiempo y comunica mejor que nunca.", imagen: "/softwares/13.png", categoria: "Productividad" },
-  { nombre: "ERP Empresarial", slug: "erp-empresarial", descripcion: "Gestiona ventas, inventario y recursos humanos desde un solo lugar. Escala tu empresa con la máxima eficiencia.", imagen: "/softwares/14.png", categoria: "Negocios" },
-  { nombre: "Control de Inventario", slug: "control-inventario", descripcion: "No pierdas ventas por falta de stock. Controla tu inventario en tiempo real y recibe alertas automáticas.", imagen: "/softwares/15.png", categoria: "Negocios" },
-  { nombre: "Gestión de Nóminas", slug: "gestion-nominas", descripcion: "Calcula y paga nóminas en minutos. Cumple con la ley y olvídate de errores y retrasos.", imagen: "/softwares/16.png", categoria: "Negocios" },
-  { nombre: "Analítica de Ventas", slug: "analitica-ventas", descripcion: "Descubre qué funciona y vende más. Analiza tus ventas con dashboards visuales y toma decisiones inteligentes.", imagen: "/softwares/17.png", categoria: "Negocios" },
-  { nombre: "Generador de Logos", slug: "generador-logos", descripcion: "Crea un logo profesional para tu marca en minutos. Personaliza, descarga y destaca frente a la competencia.", imagen: "/softwares/18.png", categoria: "Diseño" },
-  { nombre: "Editor de Video Ultra", slug: "editor-video-ultra", descripcion: "Edita vídeos como un pro: efectos, transiciones y exportación rápida. Haz que tu contenido brille en redes.", imagen: "/softwares/19.png", categoria: "Diseño" },
-  { nombre: "Suite de Animación", slug: "suite-animacion", descripcion: "Animaciones 2D/3D de nivel profesional. Da vida a tus ideas y sorprende a tu audiencia.", imagen: "/softwares/20.png", categoria: "Diseño" },
-  { nombre: "Creador de Mockups", slug: "creador-mockups", descripcion: "Presenta tus apps y productos con mockups realistas y atractivos. Impresiona a clientes e inversores.", imagen: "/softwares/21.png", categoria: "Diseño" },
-  { nombre: "Firewall Personal", slug: "firewall-personal", descripcion: "Protege tu red y dispositivos con reglas inteligentes y monitoreo en tiempo real. Seguridad sin complicaciones.", imagen: "/softwares/22.png", categoria: "Seguridad" },
-  { nombre: "Detector de Malware", slug: "detector-malware", descripcion: "Mantén tu sistema limpio y seguro. Detecta y elimina amenazas antes de que sean un problema.", imagen: "/softwares/23.png", categoria: "Seguridad" },
-  { nombre: "VPN UltraSegura", slug: "vpn-ultrasegura", descripcion: "Navega y trabaja con total privacidad. Accede a contenido global y protege tu identidad online.", imagen: "/softwares/24.png", categoria: "Seguridad" },
-  { nombre: "Backup Automático", slug: "backup-automatico", descripcion: "Tus archivos siempre a salvo. Copias de seguridad automáticas y restauración en un clic.", imagen: "/softwares/25.png", categoria: "Seguridad" },
-  { nombre: "Chat Empresarial", slug: "chat-empresarial", descripcion: "Comunicación instantánea y segura para tu equipo. Canales privados, videollamadas y colaboración eficiente.", imagen: "/softwares/26.png", categoria: "Comunicación" },
-  { nombre: "Email Marketing Pro", slug: "email-marketing-pro", descripcion: "Lanza campañas de email que convierten. Segmenta, automatiza y mide resultados fácilmente.", imagen: "/softwares/27.png", categoria: "Comunicación" },
-  { nombre: "Traductor Instantáneo", slug: "traductor-instantaneo", descripcion: "Traduce textos y conversaciones en más de 50 idiomas. Rompe barreras y haz crecer tu negocio globalmente.", imagen: "/softwares/28.png", categoria: "Comunicación" },
-  { nombre: "Webinar Studio", slug: "webinar-studio", descripcion: "Organiza webinars profesionales, graba sesiones y gestiona asistentes con facilidad. Impulsa tu marca online.", imagen: "/softwares/29.png", categoria: "Comunicación" },
-  { nombre: "Plataforma de Cursos", slug: "plataforma-cursos", descripcion: "Crea, vende y gestiona cursos online con evaluaciones y certificados. Lleva tu conocimiento al siguiente nivel.", imagen: "/softwares/30.png", categoria: "Educación" },
-  { nombre: "Simulador de Laboratorio", slug: "simulador-laboratorio", descripcion: "Experimenta y aprende con simulaciones realistas. Ideal para formación científica y técnica.", imagen: "/softwares/31.png", categoria: "Educación" },
-  { nombre: "Tutor AI", slug: "tutor-ai", descripcion: "Asistente educativo inteligente que resuelve dudas y personaliza el aprendizaje. Tu aliado para estudiar mejor.", imagen: "/softwares/32.png", categoria: "Educación" },
-];
-
-const categorias = [
-  "Todos",
-  "Productividad",
-  "Negocios",
-  "CRM",
-  "Diseño",
-  "Seguridad",
-  "Comunicación",
-  "Educación",
-];
-
 export default function Catalogo() {
+  const [productos, setProductos] = useState<any[]>([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos");
   const [showFooter, setShowFooter] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    fetch("/api/productos")
+      .then(res => res.json())
+      .then(data => setProductos(data));
+  }, []);
+
   const productosFiltrados = categoriaSeleccionada === "Todos"
     ? productos
-    : productos.filter(p => p.categoria === categoriaSeleccionada);
+    : productos.filter(p => (p.categoria || p.category) === categoriaSeleccionada);
+
   const PRECIO_BASICA = "9.99€";
   const PRECIO_PRO = "29.99€";
-  const router = useRouter();
 
   async function handleBuy(slug: string, plan: string) {
     const res = await fetch("/api/stripe/checkout", {
@@ -95,7 +58,7 @@ export default function Catalogo() {
           >
             {/* Badge de categoría */}
             <span className="absolute top-5 left-5 bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1 rounded-full shadow-sm border border-yellow-200 z-20 capitalize">
-              {producto.categoria}
+              {producto.categoria || producto.category}
             </span>
             {/* Badge top ventas */}
             {idx < 3 && (

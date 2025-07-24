@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export type Producto = {
   nombre: string;
@@ -14,13 +15,14 @@ export type Producto = {
 };
 
 export default function AccionesProducto({ producto }: { producto: Producto }) {
+  const { data: session, status } = useSession();
   const [demoActiva, setDemoActiva] = useState(false);
   const [diasRestantes, setDiasRestantes] = useState<number | null>(null);
   const [showNotif, setShowNotif] = useState(false);
   const router = useRouter();
 
-  // Simulación de login (en real, usarías auth real)
-  const isLoggedIn = false; // Cambia a true para simular usuario logueado
+  // Usar autenticación real en lugar de simulación
+  const isLoggedIn = status === "authenticated";
 
   useEffect(() => {
     const demo = localStorage.getItem("demoCodevendi");
@@ -56,7 +58,7 @@ export default function AccionesProducto({ producto }: { producto: Producto }) {
     if (!isLoggedIn) {
       setShowNotif(true);
       setTimeout(() => setShowNotif(false), 3500);
-      router.push("/register");
+      router.push("/login");
       return;
     }
     action();
@@ -67,6 +69,22 @@ export default function AccionesProducto({ producto }: { producto: Producto }) {
     localStorage.setItem("demoCodevendi", JSON.stringify({ expira }));
     setDemoActiva(true);
     setDiasRestantes(14);
+    setShowNotif(true);
+    setTimeout(() => setShowNotif(false), 3500);
+  };
+
+  const descargarSoftware = () => {
+    if (demoActiva || true) { // Por ahora permitir descarga si está en demo
+      router.push(`/descarga?producto=${producto.slug}&plan=basica`);
+    } else {
+      // TODO: Verificar suscripción activa
+      router.push(`/descarga?producto=${producto.slug}&plan=basica`);
+    }
+  };
+
+  const comprarSoftware = () => {
+    // TODO: Implementar lógica de compra real
+    console.log("Comprar software:", producto.slug);
   };
 
   return (
@@ -130,11 +148,11 @@ export default function AccionesProducto({ producto }: { producto: Producto }) {
       </div>
       {/* Botones */}
       <div className="flex flex-col gap-2 w-full mt-2">
-        <button onClick={() => handleAction(() => {})} className="w-full bg-gray-900 hover:bg-yellow-500 hover:text-gray-900 text-white font-bold py-3 px-8 rounded-full transition-all duration-200 shadow-lg flex items-center justify-center gap-2 text-lg tracking-wide" title="Comprar Básica">
-          Comprar Básica
+        <button onClick={() => handleAction(descargarSoftware)} className="w-full bg-gray-900 hover:bg-yellow-500 hover:text-gray-900 text-white font-bold py-3 px-8 rounded-full transition-all duration-200 shadow-lg flex items-center justify-center gap-2 text-lg tracking-wide" title="Descargar Básica">
+          Descargar Básica
           <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
         </button>
-        <button onClick={() => handleAction(() => {})} className="w-full bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-3 px-8 rounded-full transition-all duration-200 shadow-lg flex items-center justify-center gap-2 text-lg tracking-wide" title="Comprar Pro">
+        <button onClick={() => handleAction(comprarSoftware)} className="w-full bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-3 px-8 rounded-full transition-all duration-200 shadow-lg flex items-center justify-center gap-2 text-lg tracking-wide" title="Comprar Pro">
           Comprar Pro
           <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
         </button>

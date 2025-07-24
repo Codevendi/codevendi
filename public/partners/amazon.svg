@@ -1,1 +1,5 @@
- 
+<svg width="96" height="32" viewBox="0 0 96 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <text x="0" y="24" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" fill="#232F3E">amazon</text>
+  <path d="M10 28 Q48 38 86 28" stroke="#FF9900" stroke-width="3" fill="none"/>
+  <polygon points="80,28 86,28 83,24" fill="#FF9900"/>
+</svg> 

@@ -24,6 +24,7 @@ export default function AdminPage() {
     <div className="min-h-screen bg-gradient-to-br from-yellow-400 via-yellow-100 to-yellow-500">
       <nav className="flex gap-8 p-6 bg-white/80 shadow-lg">
         <Link href="/admin" className="font-bold text-yellow-600">Panel Admin</Link>
+        <Link href="/admin/productos" className="hover:text-yellow-600">Productos</Link>
         <Link href="/admin/ia" className="hover:text-yellow-600">Chat IA</Link>
         <Link href="/admin/soporte" className="hover:text-yellow-600">Soporte</Link>
         <Link href="/" className="ml-auto text-gray-600 hover:text-yellow-600">Volver a la tienda</Link>

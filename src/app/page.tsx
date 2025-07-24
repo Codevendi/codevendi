@@ -3,7 +3,29 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-// ...resto del código...
+import { useState } from "react";
+import { useSession } from "next-auth/react";
+
+// Simulador de IA para el chat de soporte
+async function iaCodevendiChat(userMsg: string): Promise<string> {
+  const lower = userMsg.toLowerCase();
+  // Preguntas frecuentes
+  if (lower.includes("demo")) return "Puedes probar cualquier software durante 14 días gratis. Solo regístrate y activa la demo desde el catálogo.";
+  if (lower.includes("pago") || lower.includes("tarjeta") || lower.includes("método de pago")) return "Aceptamos tarjetas de crédito/débito y Stripe. Todos los pagos son 100% seguros.";
+  if (lower.includes("cancelar") || lower.includes("suscripción")) return "Puedes cancelar o cambiar tu suscripción en cualquier momento desde tu panel de usuario.";
+  if (lower.includes("soporte")) return "Nuestro equipo de soporte está disponible para ayudarte antes y después de tu compra.";
+  if (lower.includes("descarga")) return "Tras la compra, tendrás acceso inmediato a la descarga de tu software desde tu panel de usuario.";
+  if (lower.includes("qué es codevendi") || lower.includes("que es codevendi")) return "Codevendi es la plataforma líder en venta de software profesional para empresas y autónomos.";
+  if (lower.includes("precio") || lower.includes("coste")) return "Cada software tiene su precio indicado en el catálogo. Puedes probar gratis 14 días.";
+  if (lower.includes("contacto")) return "Puedes contactarnos en info@codevendi.com o en el formulario de la sección Contacto.";
+  // Pregunta sensible/confidencial
+  if (lower.includes("contraseña") || lower.includes("admin") || lower.includes("base de datos") || lower.includes("interno") || lower.includes("vulnerabilidad") || lower.includes("error servidor")) {
+    return "Por motivos de seguridad, no puedo proporcionar esa información. ¿Te ayudo con otra consulta sobre nuestros productos o servicios?";
+  }
+  // Respuesta genérica
+  return "¡Gracias por tu mensaje! Un agente de Codevendi te responderá en breve o consulta nuestras preguntas frecuentes.";
+}
+
 const productos = [
   {
     nombre: "Gestor de Tareas Pro",
@@ -56,6 +78,13 @@ const faqs = [
 
 export default function Home() {
   const router = useRouter();
+  const { data: session } = useSession();
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatMessages, setChatMessages] = useState([
+    { from: "soporte", text: "¡Hola! ¿En qué podemos ayudarte hoy?" }
+  ]);
+  const [chatInput, setChatInput] = useState("");
+  const [chatLoading, setChatLoading] = useState(false);
   const PRECIO_BASICA = "9.99€";
   const PRECIO_PRO = "29.99€";
 
@@ -68,6 +97,21 @@ export default function Home() {
     const data = await res.json();
     if (data.url) {
       window.location.href = data.url;
+    }
+  }
+
+  async function handleChatSend(e: React.FormEvent) {
+    e.preventDefault();
+    if (chatInput.trim()) {
+      setChatMessages([...chatMessages, { from: "user", text: chatInput }]);
+      setChatLoading(true);
+      const userMsg = chatInput;
+      setChatInput("");
+      setTimeout(async () => {
+        const iaResp = await iaCodevendiChat(userMsg);
+        setChatMessages(msgs => [...msgs, { from: "soporte", text: iaResp }]);
+        setChatLoading(false);
+      }, 900);
     }
   }
 
@@ -262,10 +306,68 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* BOTONES FLOTANTES */}
-      <a href="https://wa.me/34123456789" target="_blank" rel="noopener" className="fixed bottom-20 right-4 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-3 shadow-lg transition focus:outline-none focus:ring-2 focus:ring-green-400" aria-label="WhatsApp Soporte">
-        <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A12.07 12.07 0 0012 0C5.37 0 0 5.37 0 12a11.93 11.93 0 001.67 6.13L0 24l6.37-1.67A11.93 11.93 0 0012 24c6.63 0 12-5.37 12-12 0-3.21-1.25-6.23-3.48-8.52zM12 22a9.93 9.93 0 01-5.09-1.4l-.36-.21-3.78 1 1-3.67-.24-.38A9.94 9.94 0 012 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.6c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01-.18 0-.48.07-.73.34-.25.27-.97.95-.97 2.3 0 1.34.99 2.63 1.13 2.81.14.18 1.95 2.98 4.74 4.06.66.28 1.18.45 1.58.58.66.21 1.26.18 1.73.11.53-.08 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z" /></svg>
-      </a>
+      {/* BOTÓN FLOTANTE DE CHAT DE SOPORTE */}
+      <button
+        onClick={() => setChatOpen((v) => !v)}
+        className="fixed bottom-20 right-4 z-50 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-3 shadow-lg transition focus:outline-none focus:ring-2 focus:ring-blue-400"
+        aria-label="Chat de soporte"
+      >
+        {/* Icono de operador/soporte */}
+        <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 22c4.418 0 8-3.582 8-8V9a8 8 0 10-16 0v5c0 4.418 3.582 8 8 8z" />
+          <circle cx="12" cy="13" r="4" />
+        </svg>
+      </button>
+      {/* MINI CHAT DE SOPORTE SOLO PARA USUARIOS LOGUEADOS */}
+      {chatOpen && (
+        session ? (
+          <div className="fixed bottom-24 right-4 z-50 w-80 max-w-[95vw] bg-white rounded-xl shadow-2xl border border-blue-200 flex flex-col animate-fade-in">
+            <div className="flex items-center justify-between px-4 py-2 bg-blue-600 rounded-t-xl">
+              <span className="text-white font-bold">Soporte Codevendi</span>
+              <button onClick={() => setChatOpen(false)} className="text-white hover:text-blue-200" aria-label="Cerrar chat">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+            <div className="flex-1 px-4 py-2 overflow-y-auto max-h-60 space-y-2 bg-blue-50">
+              {chatMessages.map((msg, i) => (
+                <div key={i} className={msg.from === "soporte" ? "text-left" : "text-right"}>
+                  <span className={
+                    msg.from === "soporte"
+                      ? "inline-block bg-blue-100 text-blue-900 rounded-lg px-3 py-1 text-sm"
+                      : "inline-block bg-yellow-100 text-yellow-900 rounded-lg px-3 py-1 text-sm"
+                  }>
+                    {msg.text}
+                  </span>
+                </div>
+              ))}
+              {chatLoading && (
+                <div className="text-left"><span className="inline-block bg-blue-100 text-blue-900 rounded-lg px-3 py-1 text-sm opacity-70">Escribiendo...</span></div>
+              )}
+            </div>
+            <form onSubmit={handleChatSend} className="flex items-center gap-2 px-4 py-2 border-t bg-white rounded-b-xl">
+              <input
+                type="text"
+                value={chatInput}
+                onChange={e => setChatInput(e.target.value)}
+                className="flex-1 border rounded-full px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Escribe tu mensaje..."
+                autoFocus
+              />
+              <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-2 font-bold transition" disabled={chatLoading}>Enviar</button>
+            </form>
+          </div>
+        ) : (
+          <div className="fixed bottom-24 right-4 z-50 w-80 max-w-[95vw] bg-white rounded-xl shadow-2xl border border-blue-200 flex flex-col animate-fade-in p-6 text-center">
+            <p className="text-gray-700 mb-4">Debes <Link href="/login" className="text-blue-600 underline">iniciar sesión</Link> para usar el chat de soporte IA.</p>
+            <button onClick={() => setChatOpen(false)} className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-2 font-bold transition">Cerrar</button>
+          </div>
+        )
+      )}
+      {/* FORMULARIO DE TICKET DE SOPORTE HUMANO (básico) */}
+      <div className="fixed bottom-4 left-4 z-50 w-80 max-w-[95vw] bg-white rounded-xl shadow-2xl border border-yellow-200 flex flex-col animate-fade-in p-4">
+        <h4 className="font-bold mb-2">¿Necesitas ayuda humana?</h4>
+        <form>{/* campos: asunto, mensaje, botón enviar */}</form>
+      </div>
       <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="fixed bottom-4 right-4 z-50 bg-yellow-500 hover:bg-yellow-600 text-white rounded-full p-3 shadow-lg transition focus:outline-none focus:ring-2 focus:ring-yellow-400" aria-label="Subir arriba">
         <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" /></svg>
       </button>
