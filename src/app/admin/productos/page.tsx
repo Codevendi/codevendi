@@ -139,12 +139,12 @@ export default function AdminProductosPage() {
 
   const handleEdit = (producto: Producto) => {
     setForm({
-      nombre: producto.nombre || producto.name,
-      descripcion: producto.descripcion || producto.description,
-      imagen: producto.imagen || producto.image,
-      categoria: producto.categoria || producto.category,
-      caracteristicas: producto.caracteristicas || producto.features || [""],
-      versiones: producto.versiones || producto.versions || [{ nombre: "Básica", precio: "", descripcion: "" }],
+      nombre: producto.nombre,
+      descripcion: producto.descripcion,
+      imagen: producto.imagen,
+      categoria: producto.categoria,
+      caracteristicas: producto.caracteristicas || [""],
+      versiones: producto.versiones || [{ nombre: "Básica", precio: "", descripcion: "" }],
     });
     setEditId(producto.id);
     setShowForm(true);
