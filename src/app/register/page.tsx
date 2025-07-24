@@ -228,7 +228,7 @@ export default function RegisterPage() {
                 ← Volver al inicio
               </Link>
             </div>
-          </form>
+      </form>
         </div>
       </div>
     </div>

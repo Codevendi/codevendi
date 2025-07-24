@@ -6,8 +6,7 @@ import prisma from "@/lib/prisma";
 export async function GET() {
   const session = await getServerSession();
   
-  // @ts-expect-error
-  if (!session?.user || session.user.role !== "admin") {
+  if (!session?.user || (session.user as any).role !== "admin") {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
 
@@ -41,8 +40,7 @@ export async function GET() {
 export async function PATCH(req: NextRequest) {
   const session = await getServerSession();
   
-  // @ts-expect-error
-  if (!session?.user || session.user.role !== "admin") {
+  if (!session?.user || (session.user as any).role !== "admin") {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
 
@@ -75,8 +73,7 @@ export async function PATCH(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const session = await getServerSession();
   
-  // @ts-expect-error
-  if (!session?.user || session.user.role !== "admin") {
+  if (!session?.user || (session.user as any).role !== "admin") {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
 
