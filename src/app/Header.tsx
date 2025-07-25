@@ -1,3 +1,4 @@
+// tailwindcss: hover:text-yellow-500 transition text-yellow-500 font-bold flex items-center gap-1 fixed inset-0 z-50 flex md:hidden transition-all duration-300 visible opacity-100 invisible opacity-0 absolute inset-0 bg-gradient-to-br from-yellow-400/80 via-white/90 to-yellow-600/80 backdrop-blur-sm transition-opacity duration-300 opacity-100 opacity-0 relative h-full w-72 max-w-[85vw] shadow-2xl rounded-r-2xl bg-white flex flex-col gap-6 p-6 border-l-4 border-yellow-500 text-lg font-semibold flex items-center gap-2 px-3 py-2 rounded transition-all duration-200 bg-yellow-100 text-yellow-600 shadow font-bold text-gray-900 hover:text-yellow-500
 "use client";
 import Link from "next/link";
 import Image from "next/image";
