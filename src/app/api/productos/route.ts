@@ -17,7 +17,7 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, description, price, image, versions } = body;
+    const { name, description, price, image } = body;
     if (!name || !price || !image) {
       return NextResponse.json({ error: "Faltan campos obligatorios" }, { status: 400 });
     }
@@ -27,7 +27,6 @@ export async function POST(req: NextRequest) {
         description,
         price: parseFloat(price),
         image,
-        versions,
       },
     });
     return NextResponse.json(producto);
@@ -40,7 +39,7 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
-    const { id, name, description, price, image, versions } = body;
+    const { id, name, description, price, image } = body;
     if (!id || !name || !price || !image) {
       return NextResponse.json({ error: "Faltan campos obligatorios" }, { status: 400 });
     }
@@ -51,7 +50,6 @@ export async function PUT(req: NextRequest) {
         description,
         price: parseFloat(price),
         image,
-        versions,
       },
     });
     return NextResponse.json(producto);
