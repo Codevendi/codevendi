@@ -35,6 +35,17 @@ export default function Catalogo() {
     }
   }
 
+  const categorias = [
+    "Todos",
+    "Productividad",
+    "Negocios",
+    "CRM",
+    "Diseño",
+    "Seguridad",
+    "Comunicación",
+    "Educación",
+  ];
+
   return (
     <div className="flex flex-col gap-12">
       <h1 className="text-4xl font-extrabold text-white mb-4 text-center drop-shadow-lg">Catálogo de Softwares</h1>
