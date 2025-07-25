@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className="bg-white min-h-screen flex flex-col">
+      <body className="bg-gradient-to-br from-yellow-400 via-yellow-100 to-yellow-500 min-h-screen flex flex-col text-gray-900">
         <Providers>
           <Header />
           <main className="flex-1 container mx-auto px-4 py-8">
