@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "init-admin": "ts-node scripts/init-admin.ts"
+    "init-admin": "ts-node scripts/init-admin.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.0.0",
